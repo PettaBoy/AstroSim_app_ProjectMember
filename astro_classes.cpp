@@ -26,6 +26,22 @@ class Planet : public CelestialBody {
             return orbital_speed;
         }
 
+        float calc_orbital_period() {
+            // T = 2*pi*sqrt(r^3/(G*M))
+            float G = 6.67408e-11;
+            orbital_period = 2*M_PI*sqrt(pow(orbital_radius, 3)/(G*mass));
+            return orbital_period;
+        }
+
+        float calc_orbital_eccentricity() {
+            // e = sqrt(1+(2*E*L^2)/(G^2*M^3))
+            float G = 6.67408e-11;
+            float E = 0.5*pow(orbital_speed, 2) - G*mass/orbital_radius;
+            float L = orbital_speed*mass*orbital_radius;
+            orbital_eccentricity = sqrt(1+(2*E*pow(L, 2))/(pow(G, 2)*pow(mass, 3)));
+            return orbital_eccentricity;
+        }
+
         float calc_g_surf() {
             // g = G*M/r^2
             float G = 6.67408e-11;
